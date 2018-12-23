@@ -1,8 +1,8 @@
-const path     = require('path');
-const http     = require('http');
-const socketIO = require('socket.io');
-const express  = require('express');
-const app      = express();
+const path       = require('path');
+const http       = require('http');
+const socketIO   = require('socket.io');
+const express    = require('express');
+const app        = express();
 const publicPath = path.join(__dirname, '../public');
 const port       = process.env.PORT || 3000;
 
@@ -18,8 +18,14 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
   console.log('new user is connected');
 
-  socket.on('connect', (connect) => {
-    console.log('connected to server');
+  socket.emit('newMessage', {
+    from: 'mike@example.com',
+    text: 'Hey Mike',
+    createAt: 1234
+  });
+
+  socket.on('createMessage', (newData) => {
+    console.log('new Data', newData)
   })
 
   socket.on('disconnect', (socket) => {
