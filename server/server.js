@@ -29,7 +29,7 @@ io.on('connection', (socket) => {
     createAt: new Date().getTime()
   })
 
-
+  
 
   socket.on('createMessage', (message) => {
     console.log('message', message);
